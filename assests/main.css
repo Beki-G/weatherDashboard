@@ -1,0 +1,102 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#header{
+    position: relative;
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#header:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #0091fff5, #6827b0);
+    border-radius: 0 0 50% 50%/0 0 100% 100%;
+    transform: scaleX(1.5);
+}
+
+#header-content{
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 0 auto;
+    max-width: 900px;
+    text-align: center;
+}
+
+#header-content h2{
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 3em; 
+}
+
+#header-content p{
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.citySearchForm {
+    position: relative;
+}
+
+.citySearchForm input{
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 100%;
+    background: white;
+    border-radius: .5em;
+}
+#citySearchbtn{
+    position: absolute;
+    width: 20%;
+    right: -10px;
+    z-index: 2;
+    background: rgb(4, 200, 248);
+    font-size: 17px;
+    padding: 0;
+    color: white;
+    border-radius: 0 .5em .5em 0;
+}
+
+main{
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+
+aside{
+    width: 20%;
+    position: absolute;
+    left: 0;
+    background-color: turquoise;
+    color: black;
+    height: 40vh;
+}
+.cityCurrentWeather{
+    width: 80%;
+    color: black;
+    position: absolute;
+    right: 0;
+    background-color: chartreuse;
+
+}
+.cityForcastWeather{
+    width: 80%;
+    color: black;
+    position: absolute;
+    right: 0;
+    background-color: chartreuse;
+}

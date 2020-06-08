@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assests/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section id="header">
+        <div id="header-content">
+            <h2>Weather Dashboard</h2>
+            <p>Check out the current weather & five day forcast!</p>
+            <div class="citySearchForm">
+                <input type="text" id="cityName" name="city" placeholder="City name">
+                <button id="citySearchbtn"type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <br><br><br>
+
+    <main>
+        <aside>
+            <div id="pastSearches">
+                <ul id="pastCityList">Past city searches</ul>
+            </div>
+        </aside>
+        <section class="cityCurrentWeather">Section for current weather</section>
+        <br><br>
+        <section class="cityForcastWeather">section for forcast weather</section>
+    </main>
+    
+    <!--JQuery Script-->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!--JS Script-->
+    <script src="./assests/main.js"></script>
+</body>
+</html>
