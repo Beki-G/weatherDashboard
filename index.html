@@ -22,14 +22,43 @@
     <br><br><br>
 
     <main>
-        <aside>
-            <div id="pastSearches">
-                <ul id="pastCityList">Past city searches</ul>
-            </div>
-        </aside>
-        <section class="cityCurrentWeather">Section for current weather</section>
-        <br><br>
-        <section class="cityForcastWeather">section for forcast weather</section>
+        
+            <aside >
+                <div id="pastSearches">Past city searches
+                    <ul id="pastCityList"></ul>
+                </div>
+            </aside>
+
+            <!-- <div class="break-column"></div> -->
+     
+            <div class="flex-container">
+            <section class="cityCurrentWeather ">
+                <div class = "currentWeatherCard">
+                    <span id="currentCard-cityName">City Name</span>
+                    <div class= "flex-container">
+                        <div id="currentCard-img" class="flex-child">Current weather Img</div>
+                        <div id="currentCard-stats" class="flex-child">Current weather stats</div>
+                    </div>
+                </div>
+            </section>
+
+           
+
+            <section class="cityForcastWeather">
+                <div class = "forcastWeatherCard">
+                    <span id="currentCard-cityName">5 Day forcast</span>
+                    <div class= "flex-container">
+                        <div id="forcast-1" class="flex-child forcast-child">forcast 1</div>
+                        <div id="forcast-2" class="flex-child forcast-child">forcast 2</div>
+                        <div id="forcast-2" class="flex-child forcast-child">forcast 3</div>
+                        <div id="forcast-2" class="flex-child forcast-child">forcast 4</div>
+                        <div id="forcast-2" class="flex-child forcast-child">forcast 5</div>
+                    </div>
+                </div>
+            </section>
+            <br><br>
+        </div>
+    
     </main>
     
     <!--JQuery Script-->
