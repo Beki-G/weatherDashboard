@@ -79,7 +79,7 @@ main{
 }
 
 aside{
-    background-color: rgb(184, 184, 184);
+    background: linear-gradient(-45deg, rgb(184, 184, 184), rgb(192, 228, 248));
     color: black;
     border-radius: 1.5em;
     min-height: 100px;

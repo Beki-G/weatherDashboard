@@ -13,7 +13,7 @@
             <h2>Weather Dashboard</h2>
             <p>Check out the current weather & five day forcast!</p>
             <div class="citySearchForm">
-                <input type="text" id="cityName" name="city" placeholder="City name">
+                <input type="text" id="cityName" name="City, State" placeholder="City, State">
                 <button id="citySearchbtn"type="submit"><i class="fa fa-search"></i></button>
             </div>
         </div>
@@ -23,15 +23,15 @@
 
     <main>
         
-            <aside >
-                <div id="pastSearches">Past city searches
-                    <ul id="pastCityList"></ul>
-                </div>
-            </aside>
+        <aside>
+            <div id="pastSearches">Past city searches
+                <ul id="pastCityList"></ul>
+            </div>
+        </aside>
 
-            <!-- <div class="break-column"></div> -->
+        <!-- <div class="break-column"></div> -->
      
-            <div class="flex-container">
+        <div class="flex-container">
             <section class="cityCurrentWeather ">
                 <div class = "currentWeatherCard">
                     <span id="currentCard-cityName">City Name</span>
@@ -42,17 +42,15 @@
                 </div>
             </section>
 
-           
-
             <section class="cityForcastWeather">
                 <div class = "forcastWeatherCard">
-                    <span id="currentCard-cityName">5 Day forcast</span>
+                    <span id="currentCard-cityName"><h4>5 Day forcast</h4></span>
                     <div class= "flex-container">
-                        <div id="forcast-1" class="flex-child forcast-child">forcast 1</div>
-                        <div id="forcast-2" class="flex-child forcast-child">forcast 2</div>
+                        <div id="forcast-0" class="flex-child forcast-child">forcast 1</div>
+                        <div id="forcast-1" class="flex-child forcast-child">forcast 2</div>
                         <div id="forcast-2" class="flex-child forcast-child">forcast 3</div>
-                        <div id="forcast-2" class="flex-child forcast-child">forcast 4</div>
-                        <div id="forcast-2" class="flex-child forcast-child">forcast 5</div>
+                        <div id="forcast-3" class="flex-child forcast-child">forcast 4</div>
+                        <div id="forcast-4" class="flex-child forcast-child">forcast 5</div>
                     </div>
                 </div>
             </section>
@@ -62,7 +60,7 @@
     </main>
     
     <!--JQuery Script-->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--JS Script-->
     <script src="./assests/main.js"></script>
 </body>
