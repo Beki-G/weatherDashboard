@@ -138,7 +138,8 @@ aside{
 }
 
 #currentCard-img{
-    height: 50px;
+    min-height: 50px;
+    justify-content: center;
 }
 #currentCard-stats{
     flex-grow: 3;

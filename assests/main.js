@@ -13,6 +13,12 @@ function getUVIndex(lon, lat){
 }
 
 function displayCurrentWeather(currentData){
+    console.log(currentData)
+    let imgSrc = "http://openweathermap.org/img/wn/"+currentData.weather[0].icon+"@2x.png"
+
+    let currentImg = $("<img id='currentIcon'>");
+    currentImg.attr("src", imgSrc);
+
     let currentTemp = $("<div></div>").text("Temperature: "+currentData.main.temp);
     
     let currentHumidity = $("<div></div>").text("Humidity: "+currentData.main.humidity);
@@ -21,7 +27,9 @@ function displayCurrentWeather(currentData){
     
     getUVIndex(currentData.coord.lon, currentData.coord.lat)
 
-    $("#currentCard-cityName").text(currentData.name)
+    $("#currentCard-cityName").text(currentData.name);
+    $("#currentCard-img").append(currentImg);
+    $("#currentCard-img").css("text-align", "center");
     $("#currentCard-stats").append(currentTemp);
     $("#currentCard-stats").append(currentHumidity);
     $("#currentCard-stats").append(currentWind);
@@ -29,7 +37,7 @@ function displayCurrentWeather(currentData){
 }
 
 function formatDate(dateStr){
-    console.log(dateStr);
+
     const d = new Date(dateStr)
     const year = d.getFullYear();
     const day = d.getDate();
@@ -41,13 +49,19 @@ function formatDate(dateStr){
 }
 
 function displayForecastWeather(forecastData){
-    console.log("made it to DisplayForecast");
     
     let forecastArr = forecastData.list
+    console.log(forecastArr)
     let j = 0
 
     for (let i =0; i<40; i+=8){
-        
+
+        let imgSrc = "http://openweathermap.org/img/wn/"+forecastArr[i].weather[0].icon+"@2x.png";
+
+        let forecastImg = $("<img>");
+
+        forecastImg.attr("src", imgSrc)
+
         let formattedDate = formatDate(forecastArr[i].dt_txt);
 
         let forecastTemp = $("<div></div>").text("Temp: "+ forecastArr[i].main.temp)
@@ -57,8 +71,10 @@ function displayForecastWeather(forecastData){
         let forecastChild = "#forcast-"+j;
 
         $(forecastChild).text(formattedDate);
+        $(forecastChild).append(forecastImg);
         $(forecastChild).append(forecastTemp);
         $(forecastChild).append(forecastHumidity);
+        $(forecastChild).css("text-align", "center");
 
         j++
     }
