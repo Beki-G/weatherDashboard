@@ -90,6 +90,10 @@ aside{
     margin-right: 10px;
 }
 
+#pastCityList{
+    padding-inline-start: 0;
+}
+
 .cityCurrentWeather{
     width: 80%;
     color: black;
