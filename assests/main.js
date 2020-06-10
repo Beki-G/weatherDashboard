@@ -38,6 +38,29 @@ function displayCurrentWeather(currentData){
     
 }
 
+function statecheck(str){
+    let count = 0;
+    let index;
+    let isState= false;    
+
+    for(let i = 0; i<str.length; i++){
+        if(str[i]===","){
+            ++count;
+        }
+    }
+    if (count===1){
+        index = str.search(",")+1;
+        let subStr = str.substr(index);
+        for (let i = 0; i<stateAbbreviations.length; i++){
+            subStr = subStr.toUpperCase(subStr);
+            if(stateAbbreviations[i]=== subStr){
+                str = str.substr(0,index)+""+subStr+",us"
+            }
+        }
+    };
+    return str;
+}
+
 function formatDate(dateStr){
     const d = new Date(dateStr)
     const year = d.getFullYear();
@@ -47,6 +70,16 @@ function formatDate(dateStr){
     let date = month+"/"+day+"/"+year;
 
     return date
+}
+
+function formatCityStr(str){
+    let cityName = str;
+
+    cityName=cityName.split(" ").join("");
+    cityName=cityName.toLowerCase();
+    cityName= statecheck(cityName);
+
+    return cityName
 }
 
 function displayForecastWeather(forecastData){
@@ -117,8 +150,8 @@ function updateSearchHistory(city){
             }
         }
 
-        if(isSearchedBefore !== true){
-            cityArr.push(cityObj);
+        if(isSearchedBefore === false){
+            cityArr.unshift(cityObj);
         }
 
         if(cityArr.length>10){
@@ -162,6 +195,11 @@ displaySearchHistory();
 $("#citySearchbtn").click(function(event){
     event.preventDefault();
     let city = $("#cityName").val();
-    getWeatherData(city);
     updateSearchHistory(city);
+
+    city = formatCityStr(city);
+    console.log(city)
+    getWeatherData(city);
+    
+    
 })
