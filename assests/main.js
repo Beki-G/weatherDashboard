@@ -13,7 +13,9 @@ function getUVIndex(lon, lat){
 }
 
 function displayCurrentWeather(currentData){
-    console.log(currentData)
+    $("#currentCard-img").empty();
+    $("#currentCard-stats").empty();
+
     let imgSrc = "http://openweathermap.org/img/wn/"+currentData.weather[0].icon+"@2x.png"
 
     let currentImg = $("<img id='currentIcon'>");
@@ -37,7 +39,6 @@ function displayCurrentWeather(currentData){
 }
 
 function formatDate(dateStr){
-
     const d = new Date(dateStr)
     const year = d.getFullYear();
     const day = d.getDate();
@@ -51,16 +52,16 @@ function formatDate(dateStr){
 function displayForecastWeather(forecastData){
     
     let forecastArr = forecastData.list
-    console.log(forecastArr)
     let j = 0
 
     for (let i =0; i<40; i+=8){
-
         let imgSrc = "http://openweathermap.org/img/wn/"+forecastArr[i].weather[0].icon+"@2x.png";
 
         let forecastImg = $("<img>");
 
-        forecastImg.attr("src", imgSrc)
+        forecastImg.attr("src", imgSrc);
+        forecastImg.css("margin", "0 auto");
+        forecastImg.css("display", "block");
 
         let formattedDate = formatDate(forecastArr[i].dt_txt);
 
@@ -75,6 +76,7 @@ function displayForecastWeather(forecastData){
         $(forecastChild).append(forecastTemp);
         $(forecastChild).append(forecastHumidity);
         $(forecastChild).css("text-align", "center");
+        $(forecastChild).css("margin-bottom", "10px");
 
         j++
     }
@@ -84,12 +86,10 @@ function displayForecastWeather(forecastData){
 function getWeatherData(cityStr){
     let queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityStr+"&appid=18bc71d7f6e0c92a913dd1a6fd41b1da&units=imperial"
 
-    //console.log(queryURL)
     $.ajax({
         url:queryURL,
         method: "GET"        
     }).then(function(response){
-        //console.log(response);
         displayCurrentWeather(response);
     })
 
@@ -99,7 +99,6 @@ function getWeatherData(cityStr){
         url:forecastQueryURL,
         method:"GET"
     }).then(function(response){
-        console.log(response);
         displayForecastWeather(response);
     })
 
@@ -108,7 +107,6 @@ function getWeatherData(cityStr){
 $("#citySearchbtn").click(function(event){
     event.preventDefault();
     let city = $("#cityName").val();
-
     getWeatherData(city);
 
 })

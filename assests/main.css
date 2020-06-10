@@ -119,6 +119,7 @@ aside{
     border-radius: .5em;
     width:100%;
     background-color: springgreen;
+    background: linear-gradient(45deg, springgreen, rgb(192,228,248));
 }
 
 .flex-container{
@@ -142,7 +143,7 @@ aside{
     justify-content: center;
 }
 #currentCard-stats{
-    flex-grow: 3;
+    flex-grow: 2;
     height: auto;
 
 }
