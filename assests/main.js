@@ -83,6 +83,59 @@ function displayForecastWeather(forecastData){
 
 }
 
+function displaySearchHistory(){
+    $("#pastCityList").empty();
+    if("weatherSearchHistory" in localStorage){
+        let jsonStr = localStorage.getItem("weatherSearchHistory");
+        let cityArr = JSON.parse(jsonStr);
+
+        for (const city in cityArr){
+            console.log("Hi I'm in Display: "+cityArr)
+          let liEl = $("<li></li>").text(cityArr[city].name);
+
+          liEl.attr("style", "list-style: none;")
+          
+          $("#pastCityList").append(liEl);
+        }
+    } else{
+        $("#pastCityList").text("Use the Search function to get started")
+    }
+}
+
+function updateSearchHistory(city){
+    let cityArr = [];
+    let isSearchedBefore = false;
+    let cityObj = {name:city}
+
+    if("weatherSearchHistory" in localStorage){
+        let jsonStr = localStorage.getItem("weatherSearchHistory");
+        cityArr = JSON.parse(jsonStr);
+
+        for (let i = 0; i<cityArr.length; i++){
+            if(cityArr[i].name===city){
+                isSearchedBefore =true;
+            }
+        }
+
+        if(isSearchedBefore !== true){
+            cityArr.push(cityObj);
+        }
+
+        if(cityArr.length>10){
+            cityArr.length=10;
+        }
+
+        localStorage.setItem("weatherSearchHistory", JSON.stringify(cityArr));
+    }
+
+    if(localStorage.getItem("weatherSearchHistory")===null){
+        cityArr.push(cityObj);
+        localStorage.setItem("weatherSearchHistory", JSON.stringify(cityArr));
+    }
+    
+    displaySearchHistory();
+}
+
 function getWeatherData(cityStr){
     let queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityStr+"&appid=18bc71d7f6e0c92a913dd1a6fd41b1da&units=imperial"
 
@@ -104,9 +157,11 @@ function getWeatherData(cityStr){
 
 }
 
+displaySearchHistory();
+
 $("#citySearchbtn").click(function(event){
     event.preventDefault();
     let city = $("#cityName").val();
     getWeatherData(city);
-
+    updateSearchHistory(city);
 })
