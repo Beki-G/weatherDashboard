@@ -251,17 +251,24 @@ function renderWeatherCards(){
 }
 
 displaySearchHistory();
-renderWeatherCards();
-renderRecentCitySearch();
+
+if("weatherSearchHistory" in localStorage){
+    renderWeatherCards();
+    renderRecentCitySearch();
+};
 
 $("#citySearchbtn").click(function(event){
     event.preventDefault();
 
     
     let city = $("#cityName").val();
-    updateSearchHistory(city);
-
-    city = formatCityStr(city);
-    getWeatherData(city);
     
+    city = formatCityStr(city);
+    if("weatherSearchHistory" in localStorage){
+        getWeatherData(city)
+    }else{
+        renderWeatherCards();
+        getWeatherData(city)
+    }
+    updateSearchHistory(city);
 })

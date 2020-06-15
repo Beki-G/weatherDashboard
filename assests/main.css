@@ -111,7 +111,8 @@ aside{
 .currentWeatherCard{
     padding:10px;
     border-radius: .5em;
-    background-color: skyblue;
+    background-color: rgb(9, 130, 179);
+    background: linear-gradient(45deg, rgb(31, 150, 197), rgb(120, 208, 255));
     font-size: 13pt;
 
 }
@@ -120,7 +121,7 @@ aside{
     /* border: 1.5px solid black; */
     border-radius: .5em;
     background-color: springgreen;
-    background: linear-gradient(45deg, springgreen, rgb(192,228,248));
+    background: linear-gradient(45deg, rgb(56, 219, 138), rgb(192,228,248));
     padding: 7px;
     font-size: 13pt;
 }
