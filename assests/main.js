@@ -39,7 +39,10 @@ function displayCurrentWeather(currentData){
     
     getAndDisplayUVIndex(currentData.coord.lon, currentData.coord.lat)
 
-    $("#currentCard-cityName").text(currentData.name);
+    let currentDate = new Date();
+    currentDate = formatDate(currentDate);
+
+    $("#currentCard-cityName").text(currentData.name + " - "+ currentDate);
     $("#currentCard-img").append(currentImg);
     $("#currentCard-img").css("text-align", "center");
     $("#currentCard-stats").append(currentTemp);
@@ -50,8 +53,7 @@ function displayCurrentWeather(currentData){
 
 function statecheck(str){
     let count = 0;
-    let index;
-    let isState= false;    
+    let index;   
 
     for(let i = 0; i<str.length; i++){
         if(str[i]===","){
