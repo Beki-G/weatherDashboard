@@ -6,8 +6,8 @@ function getAndDisplayUVIndex(lon, lat){
         method:"GET"
     }).then(function(response){
         let uvIndex = response.value
-        let currentUV = $("<div></div>")
-        let spanEl = $("<span></span>").text("UV Index: "+ uvIndex);
+        let currentUV = $("<div></div>").text("UV Index: ")
+        let spanEl = $("<span></span>").text(uvIndex);
 
         let uvBackground = (uvIndex<=2) ? "uvLow": 
         (uvIndex<=5 && uvIndex>2)? "uvModerate": 
@@ -31,11 +31,11 @@ function displayCurrentWeather(currentData){
     let currentImg = $("<img id='currentIcon'>");
     currentImg.attr("src", imgSrc);
 
-    let currentTemp = $("<div></div>").text("Temperature: "+currentData.main.temp);
+    let currentTemp = $("<div></div>").text("Temperature: "+currentData.main.temp+"F");
     
-    let currentHumidity = $("<div></div>").text("Humidity: "+currentData.main.humidity);
+    let currentHumidity = $("<div></div>").text("Humidity: "+currentData.main.humidity+"%");
 
-    let currentWind = $("<div></div>").text("Wind Speed: "+currentData.wind.speed)
+    let currentWind = $("<div></div>").text("Wind Speed: "+currentData.wind.speed+" mph")
     
     getAndDisplayUVIndex(currentData.coord.lon, currentData.coord.lat)
 
@@ -97,6 +97,7 @@ function displayForecastWeather(forecastData){
     let forecastArr = forecastData.list
     let j = 0
 
+    
     for (let i =0; i<40; i+=8){
         let imgSrc = "http://openweathermap.org/img/wn/"+forecastArr[i].weather[0].icon+"@2x.png";
 
@@ -107,14 +108,18 @@ function displayForecastWeather(forecastData){
         forecastImg.css("display", "block");
 
         let formattedDate = formatDate(forecastArr[i].dt_txt);
+        let forecastDateDiv = $("<div></div>").css("font-weight", "bold");
+        forecastDateDiv.text(formattedDate)
 
-        let forecastTemp = $("<div></div>").text("Temp: "+ forecastArr[i].main.temp)
+        let forecastTemp = $("<div></div>").text("Temp: "+ forecastArr[i].main.temp+"F");
 
-        let forecastHumidity =$("<div></div>").text("Humidity: "+ forecastArr[i].main.humidity);
+        let forecastHumidity =$("<div></div>").text("Humidity: "+ forecastArr[i].main.humidity+"%");
 
         let forecastChild = "#forcast-"+j;
 
-        $(forecastChild).text(formattedDate);
+        $(forecastChild).empty();
+
+        $(forecastChild).append(forecastDateDiv);
         $(forecastChild).append(forecastImg);
         $(forecastChild).append(forecastTemp);
         $(forecastChild).append(forecastHumidity);
@@ -133,11 +138,20 @@ function displaySearchHistory(){
         let cityArr = JSON.parse(jsonStr);
 
         for (const city in cityArr){
-          let liEl = $("<li></li>").text(cityArr[city].name);
+            let liEl = $("<li></li>");
+            let aEl =$("<a></a>");
+            
+            aEl.text(cityArr[city].name);
+            aEl.attr("href", "#");
+            aEl.attr("id", cityArr[city].name);
+            aEl.css("text-decoration", "none");
+            aEl.css("color", "black");
 
-          liEl.attr("style", "list-style: none;")
+            liEl.append(aEl);        
+
+            liEl.attr("style", "list-style: none;")
           
-          $("#pastCityList").append(liEl);
+            $("#pastCityList").append(liEl);
         }
     } else{
         $("#pastCityList").text("Use the Search function to get started")
@@ -231,6 +245,7 @@ function renderWeatherCards(){
     let forecastCardEl = $("<div></div>").attr("class", "forcastWeatherCard");
     let forecastDivEl = $("<div></div>").text("5 Day Forecast").attr("class", "forcastBanner");
     let innerFlexEl2 = $("<div></div>").attr("class", "flex-container");
+    innerFlexEl2.attr("id", "forcastChildGroup")
     let forecastChild1El = $("<div></div>").attr("id", "forcast-0").attr("class", "forcast-child flex-child");
     let forecastChild2El = $("<div></div>").attr("id", "forcast-1").attr("class", "forcast-child flex-child");
     let forecastChild3El = $("<div></div>").attr("id", "forcast-2").attr("class", "forcast-child flex-child");
@@ -259,16 +274,30 @@ if("weatherSearchHistory" in localStorage){
 
 $("#citySearchbtn").click(function(event){
     event.preventDefault();
-
     
-    let city = $("#cityName").val();
+    let userinput = $("#cityName").val();
     
-    city = formatCityStr(city);
+    city = formatCityStr(userinput);
     if("weatherSearchHistory" in localStorage){
         getWeatherData(city)
     }else{
         renderWeatherCards();
         getWeatherData(city)
     }
-    updateSearchHistory(city);
+    updateSearchHistory(userinput);
+})
+
+$("#pastCityList").click(function(event){
+    event.preventDefault();
+    let city = event.target.id;
+
+    let jsonStr = localStorage.getItem("weatherSearchHistory");
+    let cityArr = JSON.parse(jsonStr);
+
+    cityArr.forEach(searchedCity =>{
+        if(searchedCity.name===city){
+            getWeatherData(formatCityStr(city));
+        };
+    });  
+
 })

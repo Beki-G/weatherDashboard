@@ -139,6 +139,10 @@ aside{
     flex-flow: row wrap;
 }
 
+#forcast-0,#forcast-1,#forcast-2,#forcast-3{
+    border-right: solid 1px white;
+}
+
 #currentCard-img{
     min-height: 50px;
     justify-content: center;
@@ -204,6 +208,7 @@ aside{
     }
     .forcast-child{
         flex-basis: 100%;
+        margin-bottom: 5px;
     }
     #header-content h2{
         font-size: 2em;
@@ -218,5 +223,8 @@ aside{
     #citySearchbtn{
         right: 30px;
     }
-
+    #forcast-0,#forcast-1,#forcast-2,#forcast-3{
+        border-right: none;
+        border-bottom: solid 1px white;
+    }
 }
