@@ -1,4 +1,4 @@
-function getUVIndex(lon, lat){
+function getAndDisplayUVIndex(lon, lat){
     let queryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=18bc71d7f6e0c92a913dd1a6fd41b1da&lat="+lat+"&lon="+lon;
     
     $.ajax({
@@ -6,7 +6,17 @@ function getUVIndex(lon, lat){
         method:"GET"
     }).then(function(response){
         let uvIndex = response.value
-        let currentUV = $("<div></div>").text("UV Index: "+ uvIndex);
+        let currentUV = $("<div></div>")
+        let spanEl = $("<span></span>").text("UV Index: "+ uvIndex);
+
+        let uvBackground = (uvIndex<=2) ? "uvLow": 
+        (uvIndex<=5 && uvIndex>2)? "uvModerate": 
+        (uvIndex<=7 && uvIndex>5)? "uvHigh": 
+        (uvIndex<=10 &&uvIndex>7)? "uvVeryHigh": "uvExtreme";
+
+        spanEl.attr("class", uvBackground);
+
+        currentUV.append(spanEl);
         $("#currentCard-stats").append(currentUV);
     })
 
@@ -27,7 +37,7 @@ function displayCurrentWeather(currentData){
 
     let currentWind = $("<div></div>").text("Wind Speed: "+currentData.wind.speed)
     
-    getUVIndex(currentData.coord.lon, currentData.coord.lat)
+    getAndDisplayUVIndex(currentData.coord.lon, currentData.coord.lat)
 
     $("#currentCard-cityName").text(currentData.name);
     $("#currentCard-img").append(currentImg);
@@ -111,7 +121,7 @@ function displayForecastWeather(forecastData){
         $(forecastChild).css("text-align", "center");
         $(forecastChild).css("margin-bottom", "10px");
 
-        j++
+        j++;
     }
 
 }
@@ -123,7 +133,6 @@ function displaySearchHistory(){
         let cityArr = JSON.parse(jsonStr);
 
         for (const city in cityArr){
-            console.log("Hi I'm in Display: "+cityArr)
           let liEl = $("<li></li>").text(cityArr[city].name);
 
           liEl.attr("style", "list-style: none;")
@@ -190,16 +199,69 @@ function getWeatherData(cityStr){
 
 }
 
+function renderRecentCitySearch(){
+    if("weatherSearchHistory" in localStorage){
+        let jsonStr = localStorage.getItem("weatherSearchHistory");
+        let cityArr = JSON.parse(jsonStr);
+        let city = cityArr[0].name;
+        city = formatCityStr(city);
+        getWeatherData(city);
+    }
+}
+
+function renderWeatherCards(){
+    
+    let flexContainerEl = $("<div></div>").attr("class", "flex-container");
+
+    let weatherSectionEl = $("<section></section>").attr("class", "cityCurrentWeather");
+    let weatherCardEl = $("<div></div>").attr("class", "currentWeatherCard");
+    let citySpanEl = $("<span></span>").attr("id", "currentCard-cityName");
+    let innerFlex1El = $("<div></div>").attr("class", "flex-container");
+    let weatherImgDivEl= $("<div></div>").attr("id", "currentCard-img").attr("class", "flex-child");
+    let weatherStatsDivEl = $("<div></div>").attr("id","currentCard-stats").attr("class", "flex-child");
+
+    innerFlex1El.append(weatherImgDivEl);
+    innerFlex1El.append(weatherStatsDivEl);
+    weatherCardEl.append(citySpanEl);
+    weatherCardEl.append(innerFlex1El);
+    weatherSectionEl.append(weatherCardEl);
+    flexContainerEl.append(weatherSectionEl);
+
+    let forecastSectionEl = $("<section></section").attr("class", "cityForcastWeather");
+    let forecastCardEl = $("<div></div>").attr("class", "forcastWeatherCard");
+    let forecastDivEl = $("<div></div>").text("5 Day Forecast").attr("class", "forcastBanner");
+    let innerFlexEl2 = $("<div></div>").attr("class", "flex-container");
+    let forecastChild1El = $("<div></div>").attr("id", "forcast-0").attr("class", "forcast-child flex-child");
+    let forecastChild2El = $("<div></div>").attr("id", "forcast-1").attr("class", "forcast-child flex-child");
+    let forecastChild3El = $("<div></div>").attr("id", "forcast-2").attr("class", "forcast-child flex-child");
+    let forecastChild4El = $("<div></div>").attr("id", "forcast-3").attr("class", "forcast-child flex-child");
+    let forecastChild5El = $("<div></div>").attr("id", "forcast-4").attr("class", "forcast-child flex-child");
+
+    innerFlexEl2.append(forecastChild1El);
+    innerFlexEl2.append(forecastChild2El);
+    innerFlexEl2.append(forecastChild3El);
+    innerFlexEl2.append(forecastChild4El);
+    innerFlexEl2.append(forecastChild5El);
+    forecastCardEl.append(forecastDivEl).append(innerFlexEl2);
+    forecastSectionEl.append(forecastCardEl);
+    flexContainerEl.append(forecastSectionEl)
+
+    $("main").append(flexContainerEl)
+
+}
+
 displaySearchHistory();
+renderWeatherCards();
+renderRecentCitySearch();
 
 $("#citySearchbtn").click(function(event){
     event.preventDefault();
+
+    
     let city = $("#cityName").val();
     updateSearchHistory(city);
 
     city = formatCityStr(city);
-    console.log(city)
     getWeatherData(city);
-    
     
 })

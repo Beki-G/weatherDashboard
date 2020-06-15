@@ -7,7 +7,7 @@ body{
 #header{
     position: relative;
     width: 100%;
-    height: 35vh;
+    height: 45vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,11 +47,8 @@ body{
     font-size: 1.2em;
 }
 
-.citySearchForm {
-    position: relative;
-}
-
 .citySearchForm input{
+    position: relative;
     font-size: 17px;
     border: 1px solid grey;
     float: left;
@@ -112,18 +109,20 @@ aside{
 }
 
 .currentWeatherCard{
-    /* border: 1.5px solid black; */
+    padding:10px;
     border-radius: .5em;
     background-color: skyblue;
+    font-size: 13pt;
 
 }
 
 .forcastWeatherCard{
     /* border: 1.5px solid black; */
     border-radius: .5em;
-    width:100%;
     background-color: springgreen;
     background: linear-gradient(45deg, springgreen, rgb(192,228,248));
+    padding: 7px;
+    font-size: 13pt;
 }
 
 .flex-container{
@@ -137,9 +136,6 @@ aside{
 
 .forcast-child{
     flex-flow: row wrap;
-}
-.currentCard-cityName{
-    width: 100%;
 }
 
 #currentCard-img{
@@ -155,7 +151,43 @@ aside{
     flex-wrap: wrap;
 }
 
-@media only screen and (max-width:760px){
+.forcastBanner{
+    font-size: 20pt;
+    text-align: center;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 8px;
+}
+#currentCard-cityName{
+    font-size: 24pt;
+}
+
+.uvLow{
+    background-color: green;
+    color: white
+}
+
+.uvModerate{
+    background-color: yellow;
+    color: black;
+}
+
+.uvHigh{
+    background-color: orange;
+    color: black;
+}
+
+.uvVeryHigh{
+    background-color: red;
+    color: white;
+}
+
+.uvExtreme{
+    background-color: purple;
+    color: white;
+}
+
+@media only screen and (max-width:660px){
     aside{
         float: none;
         width: 100%;
@@ -172,4 +204,18 @@ aside{
     .forcast-child{
         flex-basis: 100%;
     }
+    #header-content h2{
+        font-size: 2em;
+    }
+    #header-content p{
+        font-size: 1em;
+    }
+    .citySearchForm input{
+        width: 75%;
+        float: none;
+    }
+    #citySearchbtn{
+        right: 30px;
+    }
+
 }
