@@ -1,5 +1,5 @@
 function getAndDisplayUVIndex(lon, lat){
-    let queryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=18bc71d7f6e0c92a913dd1a6fd41b1da&lat="+lat+"&lon="+lon;
+    let queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=18bc71d7f6e0c92a913dd1a6fd41b1da&lat="+lat+"&lon="+lon;
     
     $.ajax({
         url: queryURL,
@@ -26,7 +26,7 @@ function displayCurrentWeather(currentData){
     $("#currentCard-img").empty();
     $("#currentCard-stats").empty();
 
-    let imgSrc = "http://openweathermap.org/img/wn/"+currentData.weather[0].icon+"@2x.png"
+    let imgSrc = "https://openweathermap.org/img/wn/"+currentData.weather[0].icon+"@2x.png"
 
     let currentImg = $("<img id='currentIcon'>");
     currentImg.attr("src", imgSrc);
